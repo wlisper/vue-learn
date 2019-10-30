@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .inner {
+            height: 50px;
+            background-color: darkcyan;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <div class="inner" @click="divClick">
+        <!--- .stop 阻止事件往外传 --->
+        <input type="button" value="click" @click.stop="buttonClick">
+
+        <!--- .prevent 可以阻止默认行为 --->
+        <a href="http://www.baidu.com" @click.prevent="linkClick">有问题，先去百度</a>
+
+
+    </div>
+
+    <!--- .capture 捕获事件，由外向里传递事件 --->
+    <div class="inner" @click.capture="divClick">
+        <input type="button" value="click" @click="buttonClick">
+    </div>
+
+    <!--- .self 只有点击组件本身时才触发 --->
+    <div class="inner" @click.self="divClick">
+        <input type="button" value="self" @click="buttonClick">
+    </div>
+
+    <!--- .once 只触发一次事件 --->
+    <div class="inner" @click="divClick">
+        <input type="button" value="once" @click.stop.once="buttonClick">
+    </div>
+
+</div>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+
+        },
+        methods: {
+            divClick() {
+                console.log("this is div click");
+            },
+            buttonClick() {
+                console.log("this is button click");
+            },
+            linkClick() {
+                console.log("this is link click");
+            }
+        }
+    })
+</script>
+</body>
+</html>

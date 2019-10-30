@@ -1,0 +1,53 @@
+<html>
+<!--- 样式示例 --->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p></p>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            msg: "test a test a test a test a"
+        },
+        methods: {
+            show() {
+                console.log("in show() method");
+            }
+        },
+        // 创建阶段的生命周期函数
+        beforeCreate() {
+            // 此处data和methods都还没有初始化
+            console.log("before create");
+        },
+        created() {
+            // data和methods已经初始化了。
+            console.log("created method");
+        },
+        beforeMount() {
+            // 模版已经在内存中编译好了，但是还没有挂载到页面上。
+            console.log("before mount");
+        },
+        mounted() {
+            console.log("mounted method");
+        },
+
+        // 运行中的生命周期函数
+        beforeUpdate() {
+            // 数据更新了，但是页面中的内容还没有更新
+        },
+        updated() {
+
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<html>
+<!--- 样式示例 --->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h3>直接内插</h3>
+    <p>{{list[0]}}</p>
+
+    <h3>使用vue的v-for</h3>
+    <p v-for="item in list">{{item}}</p>
+    <p v-for="(item, idx) in list">第{{idx}}项：{{item}}</p>
+
+    <h3>迭代对象数组</h3>
+    <p v-for="user in userList">{{user.id}} --- {{user.name}}</p>
+
+    <h3>v-for 循环对象</h3>
+    <p v-for="(val, key) in user">{{key}}: {{val}}</p>
+
+    <h3>v-for 迭代数字</h3>
+    <p v-for="count in 3">item: {{count}}</p>
+</div>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            list: [1,2,3,4,5,6],
+            userList: [
+                {id:1, name:'ZhangSan'},
+                {id:2, name:'LiSi'},
+                {id:3, name:'WangWu'},
+                {id:4, name:'HuLiu'},
+            ],
+            user: {
+                id: 1234,
+                name: 'Tony',
+                gender: 'male'
+            }
+        }
+    });
+</script>
+</body>
+</html>

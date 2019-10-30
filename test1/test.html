@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <!--- v-cloak 解决插值表达式显示的问题--->
+    <p v-cloak>
+        {{msg}}
+    </p>
+    <h3 v-text="msg">
+    </h3>
+    <p> {{msg2}}</p>
+    <div v-text="msg2"></div>
+    <div v-html="msg2"></div>
+
+    <!--- v-bind 用于绑定属性, 可以简写为一个冒号--->
+    <input type="button" v-bind:value="mytitle" :title="mytitle" v-on:click="show">
+</div>
+
+
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '123',
+            msg2: '<h2>a html header</h2>',
+            mytitle: 'this is a title'
+        },
+        methods: {
+            show: function () {
+                alert("test")
+            }
+        }
+    });
+</script>
+</body>
+</html>

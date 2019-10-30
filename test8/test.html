@@ -1,0 +1,27 @@
+<html>
+<!--- 样式示例 --->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{msg | msgFormat('that') }}</p>
+</div>
+<script>
+    Vue.filter("msgFormat", function (msg, arg) {
+        return msg.replace(/test/g, arg);
+    });
+    new Vue({
+        el: '#app',
+        data: {
+            msg: "test a test a test a test a"
+        }
+    });
+
+</script>
+</body>
+</html>

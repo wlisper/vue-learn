@@ -1,0 +1,60 @@
+<html>
+<!--- 简易计算器示例 --->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .inner {
+            height: 50px;
+            background-color: darkcyan;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <input type="text" id="left" v-model="left">
+    <select v-model="op">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <input type="text" value="" v-model="right">
+    <button id="button" @click="calculate">calculate</button>
+    <p>Result: {{result}}</p>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            left: 0,
+            right: 0,
+            op: '+',
+            result: ''
+        },
+        methods: {
+            calculate() {
+                if (this.op === '+') {
+                    this.result = parseFloat(this.left) + parseFloat(this.right);
+                } else if (this.op === '-') {
+                    this.result = parseFloat(this.left) - parseFloat(this.right);
+                } else if (this.op === '*') {
+                    this.result = parseFloat(this.left) * parseFloat(this.right);
+                } else if (this.op === '/') {
+                    if (this.right == '0') {
+                        alert("divide by zero!!!");
+                        return;
+                    }
+                    this.result = parseFloat(this.left) / parseFloat(this.right);
+                }
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

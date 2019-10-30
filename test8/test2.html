@@ -1,0 +1,143 @@
+<html>
+<!--- 样式示例 --->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div id="app">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加品牌</h3>
+        </div>
+        <div class="panel-body form-inline">
+            <label>Id: <input type="text" class="form-control" v-model="id"></label>
+            <label>Name: <input type="text" class="form-control" v-model="name" @keyup.enter="add"></label>
+            <input type="button" value="添加" class="btn btn-primary" @click="add()">
+            <label>Search:<input type="text" class="form-control" v-focus v-model="searchWord" v-color="'blue'"></label>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover table-stripped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Ctime</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr v-for="item in search(searchWord)" :key="item.id">
+            <td>{{item.id}}</td>
+            <td f-fontWeight="900">{{item.name}}</td>
+            <td>{{item.ctime | dateFormat}}</td>
+            <td><a href="" @click.prevent='del(item.id)'>删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    Vue.filter('dateFormat', function(dateStr) {
+        var data = new Date(dateStr);
+        var y = data.getFullYear();
+        var m = data.getMonth() + 1;
+        var d = data.getDate();
+        return `${y}-${m}-${d}`;
+    });
+
+    Vue.directive('focus', {
+
+        // 指令绑定到元素上时执行
+        bind: function(el) {
+
+        },
+        // 元素被插入dom时执行
+        inserted: function(el) {
+            el.focus();
+        },
+        updated: function (el) {
+            
+        }
+    });
+    
+    Vue.directive('color', {
+        bind: function (el, binding) {
+            el.style.color = binding.value;
+        },
+        inserted: function (el) {
+        },
+        updated: function (el) {
+            
+        }
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: '',
+            searchWord: '',
+            list: [
+                {id: 1, name: '宝马', ctime: new Date()},
+                {id: 2, name: '奔驰', ctime: new Date()}
+            ]
+        },
+        methods: {
+            add() {
+                this.list.push({
+                    id: this.id,
+                    name: this.name,
+                    ctime: new Date()
+                });
+                this.id = this.name = '';
+            },
+            del(id) {
+                var index = this.list.findIndex(item => {
+                    if (item.id == id) {
+                        return true;
+                    }
+                });
+                this.list.splice(index, 1);
+            },
+            search(word) {
+                /*var newList = [];
+                this.list.forEach(item => {
+                    if (item.name.indexOf(word) != -1) {
+                        newList.push(item);
+                    }
+                });
+                return newList;*/
+                return this.list.filter(item => {
+                    if (item.name.includes(word)) {
+                        return item;
+                    }
+                });
+            }
+        },
+        // 私有过滤器，优先调用私有过滤器。
+        filters: {
+            dateFormat: function (dateStr) {
+                var data = new Date(dateStr);
+                var y = data.getFullYear();
+                var m = (data.getMonth() + 1).toString().padStart(2, '0');
+                var d = data.getDate().toString().padStart(2, '0');
+                return "Date: " + `${y}-${m}-${d}`;
+            }
+        },
+        directives: {
+            'fontWeight': {
+                bind: function(el, binding) {
+                    el.style.fontWeight = binding.value
+                }
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
